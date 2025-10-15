@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: capgemini-rt-ml-platform
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels: { app: capgemini-rt-ml-platform }
+  template:
+    metadata:
+      labels: { app: capgemini-rt-ml-platform }
+    spec:
+      containers:
+      - name: api
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - containerPort: 8080
+        env:
+        - name: LOG_LEVEL
+          value: "info"
+        readinessProbe:
+          httpGet: { path: /health, port: 8080 }
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          httpGet: { path: /health, port: 8080 }
+          initialDelaySeconds: 10
+          periodSeconds: 20
+        resources:
+{{ toYaml .Values.resources | indent 10 }}

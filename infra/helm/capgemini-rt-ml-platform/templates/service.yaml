@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: capgemini-rt-ml-platform
+spec:
+  type: {{ .Values.service.type }}
+  selector: { app: capgemini-rt-ml-platform }
+  ports:
+  - port: {{ .Values.service.port }}
+    targetPort: 8080
+    protocol: TCP
+    name: http
