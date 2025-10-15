@@ -1,4 +1,4 @@
-# Capgemini Real-Time ML Platform (Portfolio Project)
+# Capgemini Real-Time ML Platform Project
 
 **Author:** Saketh Sai Nigam Kanduri — Software Engineer, Capgemini
 
